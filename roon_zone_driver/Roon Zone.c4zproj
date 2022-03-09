@@ -1,0 +1,11 @@
+﻿<Driver type="c4z" name="Roon Zone" squishLua="true" manualsquish="false"  Encryption="True">
+ <Items>
+  <Item type="dir" c4zDir="www" name="www" recurse="true" exclude="false" />
+  <Item type="file" name="zone_driver.lua" />
+  <Item type="file" name="dkjson.lua" />
+  <Item type="file" name="utils.lua" />
+  <Item type="file" name="moo.lua" />
+  <Item type="file" name="moobridge.lua" />
+  <Item type="file" name="driver.xml" />
+ </Items>
+</Driver>

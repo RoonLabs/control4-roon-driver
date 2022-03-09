@@ -1,0 +1,786 @@
+<devicedata>
+  <manufacturer>Roon Labs, LLC</manufacturer>
+  <model>Roon Zone</model>
+  <search_type>c4:av_gen</search_type>
+  <creator>Roon Labs (contact@roonlabs.com)</creator>
+  <name>Roon Zone</name>
+  <small image_source="c4z">icons/logo/device_sm.png</small>
+  <large image_source="c4z">icons/logo/device_lg.png</large>
+  <control>lua_gen</control>
+  <controlmethod>ip</controlmethod>
+  <driver>DriverWorks</driver>
+  <copyright>Copyright: 2017 Roon Labs LLC.  All rights reserved.</copyright>
+  <created>01/22/2018 09:30</created>
+  <modified>__MODIFIED__</modified>
+  <version>__VERSION__</version>
+  <minimum_os_version>2.9.0</minimum_os_version>
+  <proxies>
+    <proxy proxybindingid="5001" name="Roon" image_source="c4z" small_image="icons/logo/device_sm.png" large_image="icons/logo/device_lg.png">media_service</proxy>
+    <proxy proxybindingid="5002" name="Roon Zone">amplifier</proxy>
+  </proxies>
+  <config>
+    <script file="zone_driver.lua" encryption="2"></script>
+    <documentation file="www/zone_documentation.rtf"/>
+    <properties>
+      <property>
+        <name>Status</name>
+        <type>STRING</type>
+        <default></default>
+        <password>false</password>
+        <readonly>true</readonly>
+      </property>
+      <property>
+        <name>Core</name>
+        <type>DYNAMIC_LIST</type>
+        <readonly>false</readonly>
+      </property>
+      <property>
+        <name>Zone</name>
+        <type>DYNAMIC_LIST</type>
+        <readonly>false</readonly>
+      </property>
+      <property>
+        <name>Room Off Action</name>
+        <type>LIST</type>
+        <readonly>false</readonly>
+        <default>Standby</default>
+        <items>
+          <item>Standby</item>
+          <item>Stop</item>
+          <item>Pause</item>
+          <item>Do Nothing</item>
+        </items>
+      </property>
+    </properties>
+	<commands>
+		<command>
+			<name>PLAY</name>
+			<description>Play on NAME</description>
+		</command>
+		<command>
+			<name>PAUSE</name>
+			<description>Pause on NAME</description>
+		</command>
+		<command>
+			<name>PLAYPAUSE</name>
+			<description>Play/Pause on NAME</description>
+		</command>
+		<command>
+			<name>SKIP_FWD</name>
+			<description>Skip Forward on NAME</description>
+		</command>
+		<command>
+			<name>SKIP_REV</name>
+			<description>Skip Back on NAME</description>
+		</command>
+		<command>
+			<name>STOP</name>
+			<description>Stop on NAME</description>
+		</command>
+	</commands>
+    <actions>
+    </actions>
+  </config>
+  <connections>
+    <connection>
+      <id>5001</id>
+      <type>2</type>
+      <connectionname>Roon</connectionname>
+      <consumer>False</consumer>
+      <linelevel>False</linelevel>
+      <classes>
+        <class>
+          <classname>MediaService</classname>
+        </class>
+      </classes>
+    </connection>
+    <connection>
+      <id>5002</id>
+      <type>2</type>
+      <connectionname>AVSWITCH</connectionname>
+      <consumer>False</consumer>
+      <linelevel>False</linelevel>
+      <classes>
+        <class>
+          <classname>AVSWITCH</classname>
+        </class>
+      </classes>
+    </connection>
+    <connection proxybindingid="5001">
+      <id>4100</id>
+      <type>6</type>
+      <connectionname>Local Audio</connectionname>
+      <consumer>False</consumer>
+      <linelevel>False</linelevel>
+      <idautobind>101</idautobind>
+      <classes>
+        <class>
+          <classname>RF_ROON_MUSIC</classname>
+          <autobind>True</autobind>
+        </class>
+      </classes>
+    </connection>
+    <connection proxybindingid="5002">
+      <id>3100</id>
+      <type>6</type>
+      <connectionname>Local Audio</connectionname>
+      <consumer>True</consumer>
+      <linelevel>False</linelevel>
+      <idautobind>101</idautobind>
+      <classes>
+        <class>
+          <classname>RF_ROON_MUSIC</classname>
+          <autobind>True</autobind>
+        </class>
+      </classes>
+    </connection>
+    <connection proxybindingid="5001">
+      <id>4000</id>
+      <type>6</type>
+      <connectionname>Network Audio</connectionname>
+      <consumer>False</consumer>
+      <linelevel>False</linelevel>
+      <idautobind>26101</idautobind>
+      <classes>
+        <class>
+          <classname>RF_ROON_NET_ZONE</classname>
+          <autobind>False</autobind>
+        </class>
+      </classes>
+    </connection>
+    <connection proxybindingid="5002">
+      <id>3000</id>
+      <type>6</type>
+      <connectionname>Network Audio</connectionname>
+      <consumer>True</consumer>
+      <linelevel>False</linelevel>
+      <idautobind>26102</idautobind>
+      <classes>
+        <class>
+          <classname>RF_ROON_NET_AUDIO</classname>
+          <autobind>False</autobind>
+        </class>
+      </classes>
+    </connection>
+    <connection proxybindingid="5002">
+      <id>4001</id>
+      <type>6</type>
+      <connectionname>Audio Out</connectionname>
+      <consumer>False</consumer>
+      <linelevel>True</linelevel>
+      <classes>
+		<class>
+			<classname>DIGITAL_OPTICAL</classname>
+		</class>
+		<class>
+			<classname>DIGITAL_COAX</classname>
+		</class>
+		<class>
+			<classname>STEREO</classname>
+		</class>
+		<class>
+			<classname>SPEAKER</classname>
+		</class>
+      </classes>
+    </connection>
+    <connection proxybindingid="5002">
+      <id>7001</id>
+      <type>7</type>
+      <connectionname>Audio End-Point</connectionname>
+      <consumer>False</consumer>
+      <linelevel>True</linelevel>
+      <classes>
+        <class>
+          <classname>AUDIO_SELECTION</classname>
+          <autobind>False</autobind>
+        </class>
+        <class>
+          <classname>AUDIO_VOLUME</classname>
+          <autobind>False</autobind>
+        </class>
+      </classes>
+    </connection>
+    <connection proxybindingid="5001">
+      <id>300</id>
+      <facing>6</facing>
+      <connectionname>Play</connectionname>
+      <type>1</type>
+      <consumer>False</consumer>
+      <linelevel>True</linelevel>
+      <classes>
+        <class>
+          <classname>BUTTON_LINK</classname>
+        </class>
+      </classes>
+    </connection>
+    <connection proxybindingid="5001">
+      <id>301</id>
+      <facing>6</facing>
+      <connectionname>Pause</connectionname>
+      <type>1</type>
+      <consumer>False</consumer>
+      <linelevel>True</linelevel>
+      <classes>
+        <class>
+          <classname>BUTTON_LINK</classname>
+        </class>
+      </classes>
+    </connection>
+    <connection proxybindingid="5001">
+      <id>302</id>
+      <facing>6</facing>
+      <connectionname>Play/Pause</connectionname>
+      <type>1</type>
+      <consumer>False</consumer>
+      <linelevel>True</linelevel>
+      <classes>
+        <class>
+          <classname>BUTTON_LINK</classname>
+        </class>
+      </classes>
+    </connection>
+    <connection proxybindingid="5001">
+      <id>304</id>
+      <facing>6</facing>
+      <connectionname>Next Track</connectionname>
+      <type>1</type>
+      <consumer>False</consumer>
+      <linelevel>True</linelevel>
+      <classes>
+        <class>
+          <classname>BUTTON_LINK</classname>
+        </class>
+      </classes>
+    </connection>
+    <connection proxybindingid="5001">
+      <id>305</id>
+      <facing>6</facing>
+      <connectionname>Previous Track</connectionname>
+      <type>1</type>
+      <consumer>False</consumer>
+      <linelevel>True</linelevel>
+      <classes>
+        <class>
+          <classname>BUTTON_LINK</classname>
+        </class>
+      </classes>
+    </connection>
+    <connection proxybindingid="5002">
+      <id>350</id>
+      <facing>6</facing>
+      <connectionname>Mute On</connectionname>
+      <type>1</type>
+      <consumer>False</consumer>
+      <linelevel>True</linelevel>
+      <classes>
+        <class>
+          <classname>BUTTON_LINK</classname>
+        </class>
+      </classes>
+    </connection>
+    <connection proxybindingid="5002">
+      <id>351</id>
+      <facing>6</facing>
+      <connectionname>Mute Off</connectionname>
+      <type>1</type>
+      <consumer>False</consumer>
+      <linelevel>True</linelevel>
+      <classes>
+        <class>
+          <classname>BUTTON_LINK</classname>
+        </class>
+      </classes>
+    </connection>
+    <connection proxybindingid="5002">
+      <id>352</id>
+      <facing>6</facing>
+      <connectionname>Mute Toggle</connectionname>
+      <type>1</type>
+      <consumer>False</consumer>
+      <linelevel>True</linelevel>
+      <classes>
+        <class>
+          <classname>BUTTON_LINK</classname>
+        </class>
+      </classes>
+    </connection>
+    <connection proxybindingid="5002">
+      <id>353</id>
+      <facing>6</facing>
+      <connectionname>Volume Up</connectionname>
+      <type>1</type>
+      <consumer>False</consumer>
+      <linelevel>True</linelevel>
+      <classes>
+        <class>
+          <classname>BUTTON_LINK</classname>
+        </class>
+      </classes>
+    </connection>
+    <connection proxybindingid="5002">
+      <id>354</id>
+      <facing>6</facing>
+      <connectionname>Volume Down</connectionname>
+      <type>1</type>
+      <consumer>False</consumer>
+      <linelevel>True</linelevel>
+      <classes>
+        <class>
+          <classname>BUTTON_LINK</classname>
+        </class>
+      </classes>
+    </connection>
+  </connections>
+  <capabilities>
+    <media_type>2</media_type>
+    <audio_consumer_count>2</audio_consumer_count>
+    <audio_provider_count>1</audio_provider_count>
+    <has_discrete_volume_control>True</has_discrete_volume_control>
+    <has_up_down_volume_control>True</has_up_down_volume_control>
+    <has_discrete_mute_control>True</has_discrete_mute_control>
+    <has_toggle_mute_control>True</has_toggle_mute_control>
+    <has_discrete_input_select>True</has_discrete_input_select>
+    <has_toad_input_select>False</has_toad_input_select>
+    <has_discrete_bass_control>False</has_discrete_bass_control>
+    <has_discrete_treble_control>False</has_discrete_treble_control>
+    <has_up_down_bass_control>False</has_up_down_bass_control>
+    <has_up_down_treble_control>False</has_up_down_treble_control>
+    <has_video>False</has_video>
+    <has_video_signal_sense>False</has_video_signal_sense>
+    <can_upclass>True</can_upclass>
+    <can_downclass>True</can_downclass>
+    <allow_as_path_source>True</allow_as_path_source>
+    <hide_in_media>True</hide_in_media>
+    <digital_audio_support>False</digital_audio_support>
+    <can_scan_media>False</can_scan_media>
+    <ui_selects_device>True</ui_selects_device>
+    <navigator_display_option proxybindingid="5001">
+      <translation_url>controller://driver/HelloWorld/languages</translation_url>
+    </navigator_display_option>
+    <digital_audio_support>True</digital_audio_support>
+    <has_discrete_volume_control>True</has_discrete_volume_control>
+    <has_discrete_mute_control>True</has_discrete_mute_control>
+    <UI xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" proxybindingid="5001">
+      <BrandingIcon>logo</BrandingIcon>
+      <DeviceIcon>logo</DeviceIcon>
+      <Icons>
+        <IconGroup id="logo">
+          <Icon width="20" height="20">controller://driver/Roon%20Zone/icons/logo/logo_20.png</Icon>
+          <Icon width="30" height="30">controller://driver/Roon%20Zone/icons/logo/logo_30.png</Icon>
+          <Icon width="40" height="40">controller://driver/Roon%20Zone/icons/logo/logo_40.png</Icon>
+          <Icon width="50" height="50">controller://driver/Roon%20Zone/icons/logo/logo_50.png</Icon>
+          <Icon width="60" height="60">controller://driver/Roon%20Zone/icons/logo/logo_60.png</Icon>
+          <Icon width="70" height="70">controller://driver/Roon%20Zone/icons/logo/logo_70.png</Icon>
+          <Icon width="80" height="80">controller://driver/Roon%20Zone/icons/logo/logo_80.png</Icon>
+          <Icon width="90" height="90">controller://driver/Roon%20Zone/icons/logo/logo_90.png</Icon>
+          <Icon width="100" height="100">controller://driver/Roon%20Zone/icons/logo/logo_100.png</Icon>
+          <Icon width="110" height="110">controller://driver/Roon%20Zone/icons/logo/logo_110.png</Icon>
+          <Icon width="120" height="120">controller://driver/Roon%20Zone/icons/logo/logo_120.png</Icon>
+          <Icon width="130" height="130">controller://driver/Roon%20Zone/icons/logo/logo_130.png</Icon>
+          <Icon width="140" height="140">controller://driver/Roon%20Zone/icons/logo/logo_140.png</Icon>
+        </IconGroup>
+        <IconGroup id="Search">
+          <Icon width="20" height="20">controller://driver/Roon%20Zone/icons/search/search_20.png</Icon>
+          <Icon width="30" height="30">controller://driver/Roon%20Zone/icons/search/search_30.png</Icon>
+          <Icon width="40" height="40">controller://driver/Roon%20Zone/icons/search/search_40.png</Icon>
+          <Icon width="50" height="50">controller://driver/Roon%20Zone/icons/search/search_50.png</Icon>
+          <Icon width="60" height="60">controller://driver/Roon%20Zone/icons/search/search_60.png</Icon>
+          <Icon width="70" height="70">controller://driver/Roon%20Zone/icons/search/search_70.png</Icon>
+          <Icon width="80" height="80">controller://driver/Roon%20Zone/icons/search/search_80.png</Icon>
+          <Icon width="90" height="90">controller://driver/Roon%20Zone/icons/search/search_90.png</Icon>
+          <Icon width="100" height="100">controller://driver/Roon%20Zone/icons/search/search_100.png</Icon>
+          <Icon width="110" height="110">controller://driver/Roon%20Zone/icons/search/search_110.png</Icon>
+          <Icon width="120" height="120">controller://driver/Roon%20Zone/icons/search/search_120.png</Icon>
+          <Icon width="130" height="130">controller://driver/Roon%20Zone/icons/search/search_130.png</Icon>
+          <Icon width="140" height="140">controller://driver/Roon%20Zone/icons/search/search_140.png</Icon>
+        </IconGroup>
+        <IconGroup id="MyFavorites">
+          <Icon width="30" height="30">controller://driver/HelloWorld/icons/30x30/act_icotab_preset_up.png</Icon>
+          <Icon width="60" height="60">controller://driver/HelloWorld/icons/60x60/act_icotab_preset_up.png</Icon>
+          <Icon width="116" height="55">controller://driver/HelloWorld/icons/116x55/act_icotab_preset_up.png</Icon>
+        </IconGroup>
+        <IconGroup id="Browse">
+          <Icon width="30" height="30">controller://driver/HelloWorld/icons/30x30/act_icotab_browse_up.png</Icon>
+          <Icon width="60" height="60">controller://driver/HelloWorld/icons/60x60/act_icotab_browse_up.png</Icon>
+          <Icon width="116" height="55">controller://driver/HelloWorld/icons/116x55/act_icotab_browse_up.png</Icon>
+        </IconGroup>
+      </Icons>
+      <Tabs>
+        <Tab>
+          <Name>Explore</Name>
+          <ScreenId>BrowseMusic</ScreenId>
+          <IconId>Browse</IconId>
+        </Tab>
+        <!--
+        <Tab>
+          <Name>Search</Name>
+          <ScreenId>SearchMusic</ScreenId>
+          <IconId>Search</IconId>
+        </Tab>
+        -->
+      </Tabs>
+      <Screens>
+        <Screen xsi:type="CollectionScreenType">
+          <Id>BrowseMusic</Id>
+          <DataCommand>
+            <Name>GetBrowseMusicMenu</Name>
+            <Type>PROTOCOL</Type>
+            <Params>
+              <Param>
+                <Name>screen</Name>
+                <Type>DEFAULT</Type>
+                <Value>BrowseMusic</Value>
+              </Param>
+              <Param>
+                <Name>URL</Name>
+                <Type>FIRST_SELECTED</Type>
+                <Value>URL</Value>
+              </Param>
+              <Param>
+                <Name>key</Name>
+                <Type>FIRST_SELECTED</Type>
+                <Value>key</Value>
+              </Param>
+              <Param>
+                <Name>level</Name>
+                <Type>FIRST_SELECTED</Type>
+                <Value>level</Value>
+              </Param>
+              <Param>
+                <Name>offset</Name>
+                <Type>DATA_OFFSET</Type>
+              </Param>
+              <Param>
+                <Name>count</Name>
+                <Type>DATA_COUNT</Type>
+              </Param>
+            </Params>
+          </DataCommand>
+          <TitleProperty>screen</TitleProperty>
+          <RequiresRefresh>true</RequiresRefresh>
+          <PaginationStyle>OFFSET</PaginationStyle>
+          <List>
+            <DefaultAction>BrowseMediaAction</DefaultAction>
+            <ItemDefaultActionProperty>default_action</ItemDefaultActionProperty>
+            <TitleProperty>text</TitleProperty>
+            <SubTitleProperty>subtext</SubTitleProperty>
+            <ImageProperty>image_url</ImageProperty>
+            <LengthProperty>length</LengthProperty>
+            <IsLink>
+              <Property>folder</Property>
+              <ValidValues>
+                <Value>true</Value>
+              </ValidValues>
+            </IsLink>
+            <IsHeader>
+              <Property>is_header</Property>
+              <ValidValues>
+                <Value>true</Value>
+              </ValidValues>
+            </IsHeader>
+          </List>
+        </Screen>
+      </Screens>
+      <NowPlaying>
+        <ActionIdsProperty>actionIds</ActionIdsProperty>
+        <Image />
+        <List>
+          <DefaultAction>NowPlaying</DefaultAction>
+          <TitleProperty>Title</TitleProperty>
+          <SubTitleProperty>SubTitle</SubTitleProperty>
+          <ImageProperty>ImageUrl</ImageProperty>
+        </List>
+      </NowPlaying>
+      <Actions>
+        <Action>
+          <Id>SearchMediaAction</Id>
+          <Name>Search</Name>
+          <IconId>Search</IconId>
+          <EditProperty helpText="Enter text">search</EditProperty>
+          <Command>
+            <Name>SearchMusicCommand</Name>
+            <Type>PROTOCOL</Type>
+            <Params>
+              <Param>
+                <Name>key</Name>
+                <Type>FIRST_SELECTED</Type>
+                <Value>key</Value>
+              </Param>
+              <Param>
+                <Name>level</Name>
+                <Type>FIRST_SELECTED</Type>
+                <Value>level</Value>
+              </Param>
+              <Param>
+                <Name>search</Name>
+                <Type>FIRST_SELECTED</Type>
+                <Value>search</Value>
+              </Param>
+            </Params>
+          </Command>
+        </Action>
+        <Action>
+          <Id>BrowseMediaAction</Id>
+          <Name>Build Media List</Name>
+          <IconId>lis_rha_ico_add.png</IconId>
+          <Command>
+            <Name>BrowseMusicCommand</Name>
+            <Type>PROTOCOL</Type>
+            <Params>
+              <Param>
+                <Name>screen</Name>
+                <Type>DEFAULT</Type>
+                <Value>BrowseMusic</Value>
+              </Param>
+              <Param>
+                <Name>type</Name>
+                <Type>FIRST_SELECTED</Type>
+                <!-- This is the name of the data property of the selected item that will be sent as the param -->
+                <Value>type</Value>
+              </Param>
+              <Param>
+                <Name>URL</Name>
+                <Type>FIRST_SELECTED</Type>
+                <!-- This is the name of the data property of the selected item that will be sent as the param -->
+                <Value>URL</Value>
+              </Param>
+              <Param>
+                <Name>item</Name>
+                <Type>FIRST_SELECTED</Type>
+                <!-- This is the name of the data property of the selected item that will be sent as the param -->
+                <Value>item</Value>
+              </Param>
+              <Param>
+                <Name>key</Name>
+                <Type>FIRST_SELECTED</Type>
+                <!-- This is the name of the data property of the selected item that will be sent as the param -->
+                <Value>key</Value>
+              </Param>
+              <Param>
+                <Name>level</Name>
+                <Type>FIRST_SELECTED</Type>
+                <!-- This is the name of the data property of the selected item that will be sent as the param -->
+                <Value>level</Value>
+              </Param>
+              <Param>
+                <Name>text</Name>
+                <Type>FIRST_SELECTED</Type>
+                <!-- This is the name of the data property of the selected item that will be sent as the param -->
+                <Value>text</Value>
+              </Param>
+              <Param>
+                <Name>ImageUrl</Name>
+                <Type>FIRST_SELECTED</Type>
+                <!-- This is the name of the data property of the selected item that will be sent as the param -->
+                <Value>ImageUrl</Value>
+              </Param>
+              <Param>
+                <Name>is_input</Name>
+                <Type>FIRST_SELECTED</Type>
+                <Value>is_input</Value>
+              </Param>
+              <Param>
+                <Name>prompt</Name>
+                <Type>FIRST_SELECTED</Type>
+                <Value>prompt</Value>
+              </Param>
+              <Param>
+                <Name>action</Name>
+                <Type>FIRST_SELECTED</Type>
+                <Value>action</Value>
+              </Param>
+              <Param>
+                <Name>value</Name>
+                <Type>FIRST_SELECTED</Type>
+                <Value>value</Value>
+              </Param>
+            </Params>
+          </Command>
+        </Action>
+        <Action>
+          <Id>SearchMedia</Id>
+          <Name>Search Media List</Name>
+          <IconId>lis_rha_ico_add.png</IconId>
+          <Command>
+            <Name>SearchMusicCommand</Name>
+            <Type>PROTOCOL</Type>
+            <Params>
+              <Param>
+                <Name>screen</Name>
+                <Type>DEFAULT</Type>
+                <Value>SearchMusic</Value>
+              </Param>
+              <Param>
+                <Name>type</Name>
+                <Type>FIRST_SELECTED</Type>
+                <!-- This is the name of the data property of the selected item that will be sent as the param -->
+                <Value>type</Value>
+              </Param>
+              <Param>
+                <Name>URL</Name>
+                <Type>FIRST_SELECTED</Type>
+                <!-- This is the name of the data property of the selected item that will be sent as the param -->
+                <Value>URL</Value>
+              </Param>
+              <Param>
+                <Name>item</Name>
+                <Type>FIRST_SELECTED</Type>
+                <!-- This is the name of the data property of the selected item that will be sent as the param -->
+                <Value>item</Value>
+              </Param>
+              <Param>
+                <Name>key</Name>
+                <Type>FIRST_SELECTED</Type>
+                <!-- This is the name of the data property of the selected item that will be sent as the param -->
+                <Value>key</Value>
+              </Param>
+              <Param>
+                <Name>level</Name>
+                <Type>FIRST_SELECTED</Type>
+                <!-- This is the name of the data property of the selected item that will be sent as the param -->
+                <Value>level</Value>
+              </Param>
+              <Param>
+                <Name>text</Name>
+                <Type>FIRST_SELECTED</Type>
+                <!-- This is the name of the data property of the selected item that will be sent as the param -->
+                <Value>text</Value>
+              </Param>
+              <Param>
+                <Name>ImageUrl</Name>
+                <Type>FIRST_SELECTED</Type>
+                <!-- This is the name of the data property of the selected item that will be sent as the param -->
+                <Value>ImageUrl</Value>
+              </Param>
+              <Param>
+                <Name>is_input</Name>
+                <Type>FIRST_SELECTED</Type>
+                <Value>is_input</Value>
+              </Param>
+              <Param>
+                <Name>prompt</Name>
+                <Type>FIRST_SELECTED</Type>
+                <Value>prompt</Value>
+              </Param>
+              <Param>
+                <Name>action</Name>
+                <Type>FIRST_SELECTED</Type>
+                <Value>action</Value>
+              </Param>
+              <Param>
+                <Name>value</Name>
+                <Type>FIRST_SELECTED</Type>
+                <Value>value</Value>
+              </Param>
+            </Params>
+          </Command>
+        </Action>
+        <Action>
+          <Id>NowPlaying</Id>
+          <Name>Now Playing</Name>
+          <IconId>lis_rha_ico_add.png</IconId>
+          <Command>
+            <Name>NowPlayingCommand</Name>
+            <Type>PROTOCOL</Type>
+            <Params>
+              <Param>
+                <Name>screen</Name>
+                <Type>DEFAULT</Type>
+                <Value>NowPlaying</Value>
+              </Param>
+              <Param>
+                <Name>Id</Name>
+                <Type>FIRST_SELECTED</Type>
+                <Value>Id</Value>
+              </Param>
+              <Param>
+                <Name>key</Name>
+                <Type>FIRST_SELECTED</Type>
+                <Value>key</Value>
+              </Param>
+              <Param>
+                <Name>type</Name>
+                <Type>FIRST_SELECTED</Type>
+                <Value>type</Value>
+              </Param>
+              <Param>
+                <Name>Title</Name>
+                <Type>FIRST_SELECTED</Type>
+                <Value>Title</Value>
+              </Param>
+              <Param>
+                <Name>ImageUrl</Name>
+                <Type>FIRST_SELECTED</Type>
+                <Value>ImageUrl</Value>
+              </Param>
+              <Param>
+                <Name>is_preset</Name>
+                <Type>FIRST_SELECTED</Type>
+                <Value>is_preset</Value>
+              </Param>
+            </Params>
+          </Command>
+        </Action>
+      </Actions>
+      <Dashboard>
+        <Transport>
+          <Id>SkipRev</Id>
+          <ButtonType>SKIP_REV</ButtonType>
+          <ReleaseCommand>
+            <Name>TransportSkipRevButton</Name>
+            <Type>PROTOCOL</Type>
+          </ReleaseCommand>
+        </Transport>
+        <Transport>
+          <Id>Stop</Id>
+          <ButtonType>STOP</ButtonType>
+          <ReleaseCommand>
+            <Name>STOP</Name>
+            <Type>ROOM</Type>
+          </ReleaseCommand>
+        </Transport>
+        <Transport>
+          <Id>Play</Id>
+          <ButtonType>PLAY</ButtonType>
+          <ReleaseCommand>
+            <Name>PLAY</Name>
+            <Type>ROOM</Type>
+          </ReleaseCommand>
+        </Transport>
+        <Transport>
+          <Id>Pause</Id>
+          <ButtonType>PAUSE</ButtonType>
+          <ReleaseCommand>
+            <Name>PAUSE</Name>
+            <Type>ROOM</Type>
+          </ReleaseCommand>
+        </Transport>
+        <Transport>
+          <Id>SkipFwd</Id>
+          <ButtonType>SKIP_FWD</ButtonType>
+          <ReleaseCommand>
+            <Name>TransportSkipFwdButton</Name>
+            <Type>PROTOCOL</Type>
+          </ReleaseCommand>
+        </Transport>
+      </Dashboard>
+      <DriverNotifications>
+        <Notification>
+          <Id>MessageNotification</Id>
+          <IconId>logo</IconId>
+          <Buttons>
+            <Button>
+              <Name>OK</Name>
+              <ScreenId>BrowseMusic</ScreenId>
+            </Button>
+          </Buttons>
+        </Notification>
+      </DriverNotifications>
+      <BackCommand>
+        <Name>BackCommand</Name>
+        <Type>PROTOCOL</Type>
+        <Params></Params>
+      </BackCommand>
+    </UI>
+  </capabilities>
+</devicedata>
