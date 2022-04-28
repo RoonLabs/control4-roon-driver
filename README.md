@@ -1,4 +1,4 @@
-# Roon x Control:Four Development Guide
+# Roon x Control4: Development Guide
 
 Note that Roon Labs has no current plans to do additional development work on this driver.  We're able to answer
 specific questions about the driver design or RoonAPI, and could merge pull requests, but that is about the limit.
